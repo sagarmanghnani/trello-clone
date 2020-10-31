@@ -8,15 +8,33 @@ import { HeaderComponent } from './header/header.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
+import {MatDialogModule, MatDialog} from '@angular/material/dialog';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatCardModule} from '@angular/material/card';
+
+
 import { CreateStateListComponent } from './create-state-list/create-state-list.component';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { MomentModule } from 'ngx-moment';
+import { CreateStatelistComponent } from './create-statelist/create-statelist.component';
+import { FormsModule } from '@angular/forms';
+import { StatelistComponent } from './statelist/statelist.component';
+import { HomeComponent } from './home/home.component';
+import { ShowBoardComponent } from './show-board/show-board.component';
+import { AngularFireModule } from "@angular/fire";
+import { AngularFirestoreModule } from "@angular/fire/firestore";
+import { environment } from 'src/environments/environment';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    CreateStateListComponent
+    CreateStateListComponent,
+    CreateStatelistComponent,
+    StatelistComponent,
+    HomeComponent,
+    ShowBoardComponent
   ],
   imports: [
     BrowserModule,
@@ -26,10 +44,15 @@ import { MomentModule } from 'ngx-moment';
     MatIconModule,
     MatButtonModule,
     HttpClientModule,
-    MomentModule
+    MatDialogModule,
+    FormsModule,
+    MatSnackBarModule,
+    MatDividerModule,
+    MatCardModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
   providers: [
-    HttpClient
+    HttpClient,
   ],
   bootstrap: [AppComponent]
 })

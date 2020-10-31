@@ -5,6 +5,8 @@ import {GetUserList} from 'src/modals/GetUserList'
 import { Observable } from 'rxjs';
 import { User } from 'src/modals/User';
 import { Board } from 'src/modals/Board';
+import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
+import { UtilsService } from './utils.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,8 +17,11 @@ export class ManageBoardService {
  
   
   constructor(
-    public httpClient:HttpClient
-  ) { }
+    public httpClient:HttpClient,
+    public snackBar:MatSnackBar
+  ) { 
+    
+  }
 
   //currently creating single instance of User
   fetchAllUsers():Observable<GetUserList> {
@@ -39,15 +44,25 @@ export class ManageBoardService {
   }
 
   fetchAndSetBoardForUser(){
-    let board:Board = JSON.parse(localStorage.getItem(`${Constants.BOARD}${this._boardUser.user_id}`));
+    let board = JSON.parse(localStorage.getItem(`${Constants.BOARD}${this._boardUser.user_id}`));
     if(!board){
       let createdBoard = this._boardUser.createBoard('Board 1');
       localStorage.setItem(`${Constants.BOARD}$${this._boardUser.user_id}`, JSON.stringify(createdBoard));
       this.board = createdBoard;
     }else{
-      this.board = board;
+      this.board = new Board().deserialize(board);
     }
   }
+
+  presentSnackBar(msg:string){
+    this.snackBar.open(msg, null, {
+      duration:1000
+    })
+  }
+
+  
+
+  
 
   
 

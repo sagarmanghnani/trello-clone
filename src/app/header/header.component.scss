@@ -1,0 +1,10 @@
+.example-spacer{
+    margin-left: auto;
+}
+
+.header-background{
+    background: var(--header-background);
+    .mat-toolbar{
+        padding-left: 0;
+    }
+}

@@ -3,6 +3,7 @@ import {Board} from 'src/modals/Board';
 import {ManageBoardService} from './manage-board.service'
 import { Constants } from './Constants';
 import { User, Owner } from 'src/modals/User';
+// import { NgxIndexedDBService } from 'ngx-indexed-db';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -10,13 +11,20 @@ import { User, Owner } from 'src/modals/User';
 })
 export class AppComponent {
   constructor(
-    public manageBoardService:ManageBoardService
+    public manageBoardService:ManageBoardService,
+    // public indexDb: NgxIndexedDBService
   ){
     
   }
 
 
   ngOnInit() {
+    // this.indexDb.add('Board', {
+    //   board_name:'TestBoard',
+    // }).subscribe((key) => {
+    //   console.log('key', key)
+    // })
+  
     this.assignUser();
   }
 

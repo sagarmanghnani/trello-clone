@@ -1,5 +1,8 @@
+import {Deserialize} from 'src/modals/Deserialize.interface';
+import {StateWorkflow} from 'src/modals/StateWorkflow';
 import { UtilsService } from 'src/app/utils.service';
-import {Deserialize} from 'src/modals/Deserialize.interface'
+import { state } from '@angular/animations';
+
 export class Board implements Deserialize{
     state_ids:number[];
     board_id:number;
@@ -10,14 +13,17 @@ export class Board implements Deserialize{
     updated_at:string;
     board_name:string;
 
-    constructor(name:string){
-        this.board_name = name ?? 'New Board';
-        this.board_id = UtilsService.generateRandomId();
+    constructor(){
+        
     }
 
     deserialize(input:any) {
         Object.assign(this, input);
         return this;
+    }
+
+    addStateListToBoard(state_id:number){
+        this.state_ids.push(state_id);
     }
 
     
