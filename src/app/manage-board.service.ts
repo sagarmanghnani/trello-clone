@@ -7,20 +7,23 @@ import { User } from 'src/modals/User';
 import { Board } from 'src/modals/Board';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { UtilsService } from './utils.service';
+import { StateWorkflow } from 'src/modals/StateWorkflow';
 @Injectable({
   providedIn: 'root'
 })
 export class ManageBoardService {
   GET_USERS:string = `assets/Users.json`;
+
   private _boardUser: User;
   private _board: Board;
- 
+  private _stateMaxOrderCount: number;
+  
   
   constructor(
     public httpClient:HttpClient,
     public snackBar:MatSnackBar
   ) { 
-    
+      this._stateMaxOrderCount = 0;
   }
 
   //currently creating single instance of User
@@ -41,6 +44,13 @@ export class ManageBoardService {
   }
   public set board(value: Board) {
     this._board = value;
+  }
+
+  public get stateMaxOrderCount(): number {
+    return this._stateMaxOrderCount;
+  }
+  public set stateMaxOrderCount(value: number) {
+    this._stateMaxOrderCount = value;
   }
 
   fetchAndSetBoardForUser(){

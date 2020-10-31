@@ -26,5 +26,11 @@ export class Board implements Deserialize{
         this.state_ids.push(state_id);
     }
 
+    sortStatesListOnOrder(statesList:StateWorkflow[]){
+        statesList.sort((a,b) => {
+            return a.order - b.order;
+        })
+    }
+
     
 }

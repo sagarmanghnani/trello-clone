@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { StateWorkflow } from 'src/modals/StateWorkflow';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,12 @@ export class DbserviceService {
       }
       )
     });
+  }
+
+  
+
+  fetchAllStatesForBoardId(boardId:number):Observable<StateWorkflow[]>{
+    return this.firestore.collection<StateWorkflow>("States", ref => ref.where('board_id', '==', boardId)).valueChanges({idField: 'state_id'}).pipe();
   }
 
 }

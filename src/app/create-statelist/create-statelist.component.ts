@@ -38,9 +38,10 @@ export class CreateStatelistComponent implements OnInit {
     }else{
       this.state.created_at = UtilsService.currentDateTime();
       this.state.created_by = this.manageBoard.boardUser.user_id;
+      this.state.board_id = this.manageBoard.board.board_id;
+      this.state.order = this.manageBoard.stateMaxOrderCount++;
       let serializedObj = {};
       Object.assign(serializedObj, this.state);
-      console.log(serializedObj, "serialized obj");
       this.dbService.createNewStateList(serializedObj).then(() => {
         this.manageBoard.presentSnackBar("List added successfully")
       })
