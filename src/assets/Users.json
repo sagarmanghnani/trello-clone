@@ -1,0 +1,30 @@
+{
+    "users": [
+        {
+            "user_id":1,
+            "user_name":"sagar",
+            "created_at":"2020-10-30T01:48:06"
+        },
+        {
+            "user_id":2,
+            "user_name":"Abhishek",
+            "created_at":"2020-11-30T01:48:06"
+        },
+        {
+            "user_id":3,
+            "user_name":"Gaurav",
+            "created_at":"2020-13-30T05:48:06"
+        },
+        {
+            "user_id":4,
+            "user_name":"Lalit",
+            "created_at":"2020-08-30T18:48:06"
+        },
+        {
+            "user_id":5,
+            "user_name":"Ankit",
+            "created_at":"2020-10-10T01:48:06"
+        }
+        
+    ]
+}
