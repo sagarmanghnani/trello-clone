@@ -39,7 +39,7 @@ export class CreateStatelistComponent implements OnInit {
       this.state.created_at = UtilsService.currentDateTime();
       this.state.created_by = this.manageBoard.boardUser.user_id;
       this.state.board_id = this.manageBoard.board.board_id;
-      this.state.order = this.manageBoard.stateMaxOrderCount++;
+      this.state.order = this.manageBoard.stateMaxOrderCount + 1;
       let serializedObj = {};
       Object.assign(serializedObj, this.state);
       this.dbService.createNewStateList(serializedObj).then(() => {

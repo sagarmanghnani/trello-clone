@@ -16,7 +16,9 @@ export class ShowBoardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    
+    this.manageBoard.onBoardFetchEvent.subscribe(() => {
+      this.getAllStates();
+    })
   }
 
   getAllStates(){
@@ -28,6 +30,7 @@ export class ShowBoardComponent implements OnInit {
 
         this.manageBoard.board.sortStatesListOnOrder(this.stateLists);
         this.manageBoard.stateMaxOrderCount = this.stateLists[this.stateLists.length - 1].order;
+        console.log(this.stateLists, "stateslist");
       }
       
     },

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Constants } from './Constants';
 import { HttpClient } from '@angular/common/http';
 import {GetUserList} from 'src/modals/GetUserList'
@@ -13,7 +13,7 @@ import { StateWorkflow } from 'src/modals/StateWorkflow';
 })
 export class ManageBoardService {
   GET_USERS:string = `assets/Users.json`;
-
+  onBoardFetchEvent:EventEmitter<any> = new EventEmitter();
   private _boardUser: User;
   private _board: Board;
   private _stateMaxOrderCount: number;
@@ -57,18 +57,23 @@ export class ManageBoardService {
     let board = JSON.parse(localStorage.getItem(`${Constants.BOARD}${this._boardUser.user_id}`));
     if(!board){
       let createdBoard = this._boardUser.createBoard('Board 1');
-      localStorage.setItem(`${Constants.BOARD}$${this._boardUser.user_id}`, JSON.stringify(createdBoard));
+      localStorage.setItem(`${Constants.BOARD}${this._boardUser.user_id}`, JSON.stringify(createdBoard));
       this.board = createdBoard;
     }else{
       this.board = new Board().deserialize(board);
     }
+    this.onBoardFetchEvent.emit();
   }
+
+  
 
   presentSnackBar(msg:string){
     this.snackBar.open(msg, null, {
       duration:1000
     })
   }
+
+  
 
   
 

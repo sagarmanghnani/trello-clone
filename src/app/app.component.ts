@@ -12,19 +12,13 @@ import { User, Owner } from 'src/modals/User';
 export class AppComponent {
   constructor(
     public manageBoardService:ManageBoardService,
-    // public indexDb: NgxIndexedDBService
+    
   ){
     
   }
 
 
   ngOnInit() {
-    // this.indexDb.add('Board', {
-    //   board_name:'TestBoard',
-    // }).subscribe((key) => {
-    //   console.log('key', key)
-    // })
-  
     this.assignUser();
   }
 
