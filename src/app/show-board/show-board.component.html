@@ -1,11 +1,13 @@
 <div>
     <h1 *ngIf="manageBoard?.board?.board_name" > {{manageBoard.board.board_name}} </h1>
-    <mat-divider></mat-divider>
-
     <div class="clr-row">
         <div *ngFor="let state of stateLists" class="clr-col-4">
             <app-statelist [state] = "state"></app-statelist>
         </div>
     </div>
+
+
+
+    <button (click)="createTask()"> Create task </button>
     
 </div>

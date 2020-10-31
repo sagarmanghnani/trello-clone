@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ManageBoardService } from '../manage-board.service';
 import { StateWorkflow } from 'src/modals/StateWorkflow';
 import { DbserviceService } from '../dbservice.service';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateTaskComponent } from '../create-task/create-task.component';
+import { Constants } from '../Constants';
 
 @Component({
   selector: 'app-show-board',
@@ -12,7 +15,8 @@ export class ShowBoardComponent implements OnInit {
   stateLists:StateWorkflow[] = [];
   constructor(
     public manageBoard:ManageBoardService,
-    public dbService:DbserviceService
+    public dbService:DbserviceService,
+    public dialog:MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -38,6 +42,18 @@ export class ShowBoardComponent implements OnInit {
       this.manageBoard.presentSnackBar("Something went wrong");
     }
     )
+  }
+
+
+  createTask(){
+    let dialogRef = this.dialog.open(CreateTaskComponent, {
+      data:{
+        state_list_info:this.stateLists[0],
+        mode:Constants.MODE_CREATE,
+      },
+      width: '600px',
+      panelClass:'my-panel'
+    })
   }
 
 }

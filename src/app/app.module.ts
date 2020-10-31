@@ -24,7 +24,8 @@ import { ShowBoardComponent } from './show-board/show-board.component';
 import { AngularFireModule } from "@angular/fire";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { environment } from 'src/environments/environment';
-
+import { CreateTaskComponent } from './create-task/create-task.component';
+import {MatSelectModule} from '@angular/material/select'
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { environment } from 'src/environments/environment';
     CreateStatelistComponent,
     StatelistComponent,
     HomeComponent,
-    ShowBoardComponent
+    ShowBoardComponent,
+    CreateTaskComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +51,8 @@ import { environment } from 'src/environments/environment';
     MatSnackBarModule,
     MatDividerModule,
     MatCardModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig)
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    MatSelectModule
   ],
   providers: [
     HttpClient,

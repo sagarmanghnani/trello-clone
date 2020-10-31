@@ -1,6 +1,8 @@
 <div *ngIf="state?.state_id" >
-    <h3> {{state.state_name}}</h3> <button mat-icon-button (click)="addTask()"><mat-icon>add</mat-icon> </button>
-    <mat-divider></mat-divider>
+    <div class="state-header">
+        <h3> {{state.state_name}}</h3> <button mat-icon-button><mat-icon>add</mat-icon> </button>
+    </div>
+    
 
 
 </div>

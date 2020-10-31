@@ -1,0 +1,32 @@
+<div class="task-container">
+    <div class="task-header">
+        <div>
+            <input [(ngModel)]="manageTask.task_name" placeholder="enter task name " >
+            <p> in list {{stateListInfo?.state_name}} </p>
+        </div>
+    </div>
+
+    <div *ngIf="allUsers?.length" >
+        <label> Member </label>
+        <mat-select multiple class="userselect" [(ngModel)]="selectedOwners" #select> 
+            <mat-option *ngFor="let user of allUsers" [value] = "user.user_id"> {{user.user_name}} </mat-option>
+        </mat-select>
+    </div>
+
+    <div *ngIf="selectedOwners?.length" class="show-selected-owners">
+        <div *ngFor = "let selectedOwnerId of selectedOwners">
+            <p> {{showOwner(selectedOwnerId)}} <span> <mat-icon (click)="removeOwner(selectedOwnerId)">close</mat-icon> </span> </p>
+        </div>
+        <button mat-mini-fab class="add-owner-btn"> <mat-icon (click)="selectOwnersFortask(select)">add</mat-icon>  </button>
+    </div>
+
+
+    <div>
+        <h3> Description </h3>
+        <textarea [(ngModel)]="manageTask.description" rows="4" placeholder="describe your task" style="width:100%"></textarea>
+    </div>
+
+    
+
+    
+</div>

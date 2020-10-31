@@ -1,0 +1,58 @@
+.task-container{
+    background: var(--theme-background);
+    .task-header{
+        display: flex;
+        div:first-child{
+            width: 100%;
+        }
+        input{
+            width: 100%;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border-radius: 5px;
+            border: 1px solid gray;
+            border: none;
+            background: transparent;
+            font-size: 20px;
+
+            :focus{
+                background: white !important;
+            }
+        }
+    }
+
+    .show-selected-owners{
+        display: flex;
+        align-items: center;
+        mat-icon{
+            font-size: 12px;
+            cursor: pointer;
+        }
+        p{
+            margin-bottom: 0;
+        }
+    }
+
+    .add-owner-btn{
+        margin-left: auto;
+        margin-right: 10px;
+        mat-icon{
+            font-size: 24px;
+        }
+    }
+}
+
+::ng-deep .userselect div.mat-select-arrow-wrapper {
+    display: none;
+  }
+  
+  ::ng-deep .userselect.mat-select {
+    display: inline;
+  }
+
+
+@mixin myPanel(){
+    .my-panel .mat-dialog-container {
+        background: var(--theme-background) !important;
+    }
+   }
