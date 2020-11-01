@@ -25,7 +25,8 @@ import { AngularFireModule } from "@angular/fire";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { environment } from 'src/environments/environment';
 import { CreateTaskComponent } from './create-task/create-task.component';
-import {MatSelectModule} from '@angular/material/select'
+import {MatSelectModule} from '@angular/material/select';
+import { TaskComponent } from './task/task.component'
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import {MatSelectModule} from '@angular/material/select'
     StatelistComponent,
     HomeComponent,
     ShowBoardComponent,
-    CreateTaskComponent
+    CreateTaskComponent,
+    TaskComponent
   ],
   imports: [
     BrowserModule,

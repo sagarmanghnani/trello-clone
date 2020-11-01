@@ -26,6 +26,10 @@ export class UtilsService {
     localStorage.setItem(key, JSON.stringify(value));
   }
 
+  public static showStandardDateTime(dateTime){
+    return moment(dateTime,'YYYY-MM-DD').format('MMM Do YY')
+  }
+
   
 
 

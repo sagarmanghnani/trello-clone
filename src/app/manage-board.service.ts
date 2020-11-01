@@ -14,10 +14,18 @@ import { StateWorkflow } from 'src/modals/StateWorkflow';
 export class ManageBoardService {
   GET_USERS:string = `assets/Users.json`;
   onBoardFetchEvent:EventEmitter<any> = new EventEmitter();
+
   private _boardUser: User;
   private _board: Board;
   private _stateMaxOrderCount: number;
-  
+  private _userMap: Map<number, User> = new Map();
+  public get userMap(): Map<number, User> {
+    return this._userMap;
+  }
+  public set userMap(value: Map<number, User>) {
+    this._userMap = value;
+  }
+
   
   constructor(
     public httpClient:HttpClient,

@@ -1,8 +1,12 @@
 <div *ngIf="state?.state_id" >
     <div class="state-header">
-        <h3> {{state.state_name}}</h3> <button mat-icon-button><mat-icon>add</mat-icon> </button>
+        <h3> <span> {{taskList.length}} </span>  {{state.state_name}}</h3> <button mat-icon-button></button>
     </div>
     
-
+    <div *ngIf="taskList.length" >
+        <div *ngFor = "let task of taskList">
+            <app-task [task] = "task" [usersMap] = "manageBoardService.userMap" [stateInfo] = "state"></app-task>
+        </div>
+    </div>
 
 </div>

@@ -5,6 +5,7 @@ import { DbserviceService } from '../dbservice.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateTaskComponent } from '../create-task/create-task.component';
 import { Constants } from '../Constants';
+import { Owner, User } from 'src/modals/User';
 
 @Component({
   selector: 'app-show-board',
@@ -23,6 +24,8 @@ export class ShowBoardComponent implements OnInit {
     this.manageBoard.onBoardFetchEvent.subscribe(() => {
       this.getAllStates();
     })
+
+    this.getAllUsers();
   }
 
   getAllStates(){
@@ -42,6 +45,23 @@ export class ShowBoardComponent implements OnInit {
       this.manageBoard.presentSnackBar("Something went wrong");
     }
     )
+  }
+
+  getAllUsers(){
+    this.manageBoard.fetchAllUsers().subscribe(res => {
+      let allUsers = res.users.map((user) => {
+        return new Owner().deserialize(user);
+      });
+      this.createOwnersMap(allUsers);
+    })
+  }
+
+  createOwnersMap(users:User[]){
+    let ownersMap:Map<number, User> = new Map();
+    users.forEach((user) => {
+      ownersMap.set(user.user_id, user);
+    })
+    this.manageBoard.userMap = ownersMap;
   }
 
 

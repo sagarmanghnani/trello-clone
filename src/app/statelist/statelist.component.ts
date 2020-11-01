@@ -1,5 +1,8 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { StateWorkflow } from 'src/modals/StateWorkflow';
+import { DbserviceService } from '../dbservice.service';
+import { Task } from 'src/modals/Task';
+import { ManageBoardService } from '../manage-board.service';
 
 @Component({
   selector: 'app-statelist',
@@ -8,10 +11,15 @@ import { StateWorkflow } from 'src/modals/StateWorkflow';
 })
 export class StatelistComponent implements OnInit {
 
-  @Input() state:StateWorkflow
-  constructor() { }
+  @Input() state:StateWorkflow;
+  taskList:Task[] = [];
+  constructor(
+    public dbService:DbserviceService,
+    public manageBoardService:ManageBoardService
+  ) { }
 
   ngOnInit(): void {
+    this.getAllTasksForStateList();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -19,6 +27,18 @@ export class StatelistComponent implements OnInit {
       this.state = changes['state'].currentValue;
     }
   }
+
+  getAllTasksForStateList(){
+    this.dbService.getTasksFromStateId(this.state.state_id).subscribe(tasks => {
+      if(tasks && tasks.length){
+        this.taskList = tasks.map(task => {
+          return new Task().deserialize(task);
+        })
+      }
+    })
+  }
+
+  
 
   
 

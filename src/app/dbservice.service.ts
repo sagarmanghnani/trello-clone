@@ -66,4 +66,20 @@ export class DbserviceService {
     })
   }
 
+  getTasksFromStateId(stateId:number):Observable<Task[]> {
+    return this.firestore.collection<Task>("Tasks", ref => ref.where('state_id','==', stateId)).valueChanges({idField: 'task_id'}).pipe();
+  }
+
+  updateTask(taskId:string, updateData:Task){
+    return new Promise((resolve, reject) => {
+      return this.firestore.collection("Tasks").doc(taskId).set(updateData).then(() => {
+        resolve();
+      },
+      (err) => {
+        reject();
+      }
+      )
+    })
+  }
+
 }

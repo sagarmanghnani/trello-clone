@@ -8,6 +8,7 @@ import { User, Owner } from 'src/modals/User';
 import { ManageBoardService } from '../manage-board.service';
 import { DbserviceService } from '../dbservice.service';
 import { MatSelect } from '@angular/material/select';
+import { UtilsService } from '../utils.service';
 @Component({
   selector: 'app-create-task',
   templateUrl: './create-task.component.html',
@@ -36,7 +37,7 @@ export class CreateTaskComponent implements OnInit {
     this.mode = mode ?? Constants.MODE_CREATE;
     let existingTask:Task = this.data.existing_task;
     if(existingTask && existingTask.task_id){
-      Object.assign(this.stateListInfo, existingTask);
+      Object.assign(this.manageTask, existingTask);
     }
     this.getAllUsers();
   }
@@ -48,7 +49,10 @@ export class CreateTaskComponent implements OnInit {
         return new Owner().deserialize(user);
       });
       this.createOwnersMap(this.allUsers);
-      this.selectedOwners.push(this.manageBoard.boardUser.user_id);
+      if(this.mode === Constants.MODE_CREATE){
+        this.manageTask.owners_ids.push(this.manageBoard.boardUser.user_id);
+      }
+
     })
   }
 
@@ -107,6 +111,20 @@ export class CreateTaskComponent implements OnInit {
       this.manageBoard.presentSnackBar("Task added successfully");
       this.dialogRef.close();
     });    
+  }
+
+  editTask(){
+    let status = this.validateTask();
+    if(!status){
+      return;
+    }
+    let taskToEdit = {};
+    this.manageTask.state_id = this.stateListInfo.state_id;
+    this.manageTask.updated_at = UtilsService.currentDateTime();
+    this.dbService.updateTask(this.manageTask.task_id, Object.assign(taskToEdit, this.manageTask)).then(() => {
+      this.manageBoard.presentSnackBar("Task updated successfully");
+      this.dialogRef.close();
+    });
   }
 
 

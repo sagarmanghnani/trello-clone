@@ -1,7 +1,8 @@
 import { UtilsService } from 'src/app/utils.service';
+import { Deserialize } from './Deserialize.interface';
 
-export class Task {
-    task_id:number;
+export class Task implements Deserialize {
+    task_id:string;
     task_name:string;
     description:string;
     attachments:string[] = [];
@@ -9,7 +10,7 @@ export class Task {
     created_at:string;
     updated_at:string;
     created_by:number;
-    state_id:number;
+    state_id:string;
     assigned_to:number[] = [];
 
     constructor(){
@@ -28,4 +29,10 @@ export class Task {
         }
 
     }
+
+    deserialize(input:any) {
+        Object.assign(this, input);
+        return this;
+    }
+
 }

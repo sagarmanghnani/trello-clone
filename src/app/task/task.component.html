@@ -1,0 +1,12 @@
+<mat-card (click)="editTask()">
+    <p>{{task?.task_name}}</p>
+    <p *ngIf="task?.owners_ids?.length" >  
+        <span *ngFor="let userId of task.owners_ids" >
+            {{showUserByUserId(userId)}}
+        </span>
+    </p>
+
+    <p> {{prettyPrintDateTime(task?.created_at)}} </p>
+
+
+</mat-card>
