@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { Task } from 'src/modals/Task';
 import { User } from 'src/modals/User';
 import { UtilsService } from '../utils.service';
@@ -18,6 +18,8 @@ export class TaskComponent implements OnInit {
   @Input() task:Task;
   @Input() usersMap:Map<number, User>;
   @Input() stateInfo:StateWorkflow;
+  @Output() statusChangeEvent:EventEmitter<any> = new EventEmitter()
+
   constructor(
     public dialog:MatDialog,
     public dbService:DbserviceService,
@@ -57,6 +59,12 @@ export class TaskComponent implements OnInit {
       },
       width: '600px',
       panelClass:'my-panel'
+    })
+
+    dialogRef.afterClosed().subscribe(res => {
+      if(res && res.state_id !== this.task.state_id){
+        this.statusChangeEvent.emit();
+      }
     })
   }
 

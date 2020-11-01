@@ -11,7 +11,7 @@
 
     <div class="action-footer">
         <p *ngIf="task.attachments.length" > <mat-icon>attachment</mat-icon> {{task.attachments.length}} </p>
-        <p (click)="deleteTask()" class="delete-task"> <mat-icon>delete</mat-icon></p>
+        <p (click)="deleteTask()" class="delete-task" *ngIf="manageBoardService.stateMinOrderCount === stateInfo.order" > <mat-icon>delete</mat-icon></p>
     </div>
 
     

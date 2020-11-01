@@ -11,7 +11,7 @@
     <mat-divider></mat-divider>
     <div *ngIf="taskList.length" class="task-heading-handle">
         <div *ngFor = "let task of taskList" class="task-container">
-            <app-task [task] = "task" [usersMap] = "manageBoardService.userMap" [stateInfo] = "state"></app-task>
+            <app-task [task] = "task" [usersMap] = "manageBoardService.userMap" [stateInfo] = "state" (statusChangeEvent) = "removeTaskFromStateList(task.task_id)"></app-task>
         </div>
     </div>
 

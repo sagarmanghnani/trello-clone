@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef, EventEmitter } from '@angular/core';
 import { Task } from 'src/modals/Task';
 import { StateWorkflow } from 'src/modals/StateWorkflow';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -25,6 +25,7 @@ export class CreateTaskComponent implements OnInit {
   @ViewChild('select')select:MatSelect;
   @ViewChild('attachmentUpload')attachmentUpload:ElementRef
   availableStatesForTransition:StateWorkflow[] = [];
+  previousStatusId:string;
   constructor(
     public dialogRef: MatDialogRef<CreateTaskComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -39,6 +40,7 @@ export class CreateTaskComponent implements OnInit {
     let existingTask:Task = this.data.existing_task;
     if(existingTask && existingTask.task_id){
       Object.assign(this.manageTask, existingTask);
+      this.previousStatusId = this.manageTask.state_id;
     }
     this.getAllUsers();
     this.getAllStatesForBoard();
@@ -130,8 +132,12 @@ export class CreateTaskComponent implements OnInit {
     this.manageTask.state_id = this.stateListInfo.state_id;
     this.manageTask.updated_at = UtilsService.currentDateTime();
     this.dbService.updateTask(this.manageTask.task_id, Object.assign(taskToEdit, this.manageTask)).then(() => {
+      
       this.manageBoard.presentSnackBar("Task updated successfully");
-      this.dialogRef.close();
+      this.dialogRef.close({
+        state_id:this.manageTask.state_id
+      });
+
     });
   }
 

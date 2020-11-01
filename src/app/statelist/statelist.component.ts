@@ -62,6 +62,12 @@ export class StatelistComponent implements OnInit {
 
   }
 
+  removeTaskFromStateList(taskId:string){
+    this.taskList = this.taskList.filter(task => {
+      return task.task_id !== taskId
+    })
+  }
+
   
 
   
