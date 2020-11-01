@@ -9,6 +9,7 @@ import { ManageBoardService } from '../manage-board.service';
 import { DbserviceService } from '../dbservice.service';
 import { MatSelect } from '@angular/material/select';
 import { UtilsService } from '../utils.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-create-task',
   templateUrl: './create-task.component.html',
@@ -30,7 +31,8 @@ export class CreateTaskComponent implements OnInit {
     public dialogRef: MatDialogRef<CreateTaskComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public manageBoard:ManageBoardService,
-    public dbService:DbserviceService
+    public dbService:DbserviceService,
+    public ngxSpinner:NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
@@ -48,7 +50,9 @@ export class CreateTaskComponent implements OnInit {
 
 
   getAllUsers(){
+    this.ngxSpinner.show();
     this.manageBoard.fetchAllUsers().subscribe(res => {
+      this.ngxSpinner.hide();
       this.allUsers = res.users.map((user) => {
         return new Owner().deserialize(user);
       });
@@ -57,7 +61,11 @@ export class CreateTaskComponent implements OnInit {
         this.manageTask.owners_ids.push(this.manageBoard.boardUser.user_id);
       }
 
-    })
+    },
+    (err) => {
+      this.ngxSpinner.hide();
+    }
+    )
   }
 
 
@@ -142,9 +150,15 @@ export class CreateTaskComponent implements OnInit {
   }
 
   getAllStatesForBoard(){
+    this.ngxSpinner.show();
     this.dbService.fetchAllowedStatesForBoardId(this.stateListInfo.board_id, this.stateListInfo.order).subscribe(res => {
+      this.ngxSpinner.hide();
       this.availableStatesForTransition = res;
-    })
+    },
+    (err) => {
+      this.ngxSpinner.hide();
+    }
+    )
   }
 
   assignNewState(event){

@@ -26,6 +26,7 @@
     "firebase": "^8.0.0",
     "moment": "^2.29.1",
     "ngx-moment": "^5.0.0",
+    "ngx-spinner": "^10.0.1",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"

@@ -4,6 +4,7 @@ import {StateWorkflow} from 'src/modals/StateWorkflow';
 import { UtilsService } from '../utils.service';
 import { ManageBoardService } from '../manage-board.service';
 import { DbserviceService } from '../dbservice.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-create-statelist',
@@ -16,7 +17,8 @@ export class CreateStatelistComponent implements OnInit {
     public dialogRef: MatDialogRef<CreateStatelistComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public manageBoard:ManageBoardService,
-    public dbService:DbserviceService
+    public dbService:DbserviceService,
+    public ngxSpinner:NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
@@ -42,9 +44,14 @@ export class CreateStatelistComponent implements OnInit {
       this.state.order = this.manageBoard.stateMaxOrderCount + 1;
       let serializedObj = {};
       Object.assign(serializedObj, this.state);
+      this.ngxSpinner.show();
       this.dbService.createNewStateList(serializedObj).then(() => {
+        this.ngxSpinner.hide();
         this.manageBoard.presentSnackBar("List added successfully");
         this.dialogRef.close();
+      },
+      ).catch(() => {
+        this.ngxSpinner.hide();
       })
     }
   }

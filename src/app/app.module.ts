@@ -28,6 +28,8 @@ import { CreateTaskComponent } from './create-task/create-task.component';
 import {MatSelectModule} from '@angular/material/select';
 import { TaskComponent } from './task/task.component'
 import { EcoFabSpeedDialModule } from '@ecodev/fab-speed-dial';
+import { NgxSpinnerModule } from 'ngx-spinner';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,7 +57,8 @@ import { EcoFabSpeedDialModule } from '@ecodev/fab-speed-dial';
     MatCardModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     MatSelectModule,
-    EcoFabSpeedDialModule
+    EcoFabSpeedDialModule,
+    NgxSpinnerModule
   ],
   providers: [
     HttpClient,
