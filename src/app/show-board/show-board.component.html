@@ -1,5 +1,7 @@
 <div>
     <h1 *ngIf="manageBoard?.board?.board_name" > {{manageBoard.board.board_name}} <button mat-flat-button (click) = "createStateList()" class="add-list-btn"> <mat-icon>add</mat-icon> Add List </button> </h1>
+
+    <small> At-least 3 list is required to create task </small>
     <div class="clr-row scroll-list clarity-fix">
         <div *ngFor="let state of stateLists" class="clr-col-12 clr-col-sm-6 clr-col-md-4 clr-col-lg-3">
             <app-statelist [state] = "state"></app-statelist>
@@ -9,15 +11,17 @@
 
 
     <!-- <button (click)="createTask()"> Create task </button> -->
-    
 </div>
 
-<eco-fab-speed-dial class="add-list" >
+<button mat-fab color="primary" [disabled] = "stateLists.length < 3 || stateLists.length > 9" (click)="createTask()" class="add-list"><mat-icon>add_task</mat-icon> </button>
+
+<!-- <eco-fab-speed-dial class="add-list" >
     <eco-fab-speed-dial-trigger>
-        <button mat-fab color="primary"><mat-icon>menu</mat-icon></button>
+        
+        <button mat-fab color="primary" [disabled] = "stateLists.length < 3 || stateLists.length > 9"><mat-icon>menu</mat-icon></button>
     </eco-fab-speed-dial-trigger>
  
-    <eco-fab-speed-dial-actions>
-        <button mat-mini-fab (click)="createTask()" color="primary"><mat-icon>add_task</mat-icon></button>
+    <eco-fab-speed-dial-actions open = "true">
+        <button mat-mini-fab (click)="createTask()" color="primary" [disabled] = "stateLists.length < 3 || stateLists.length > 9"><mat-icon>add_task</mat-icon></button>
     </eco-fab-speed-dial-actions>
-</eco-fab-speed-dial>
+</eco-fab-speed-dial>     -->

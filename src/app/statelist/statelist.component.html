@@ -9,7 +9,7 @@
 
     
     <mat-divider></mat-divider>
-    <div *ngIf="taskList.length" >
+    <div *ngIf="taskList.length" class="task-heading-handle">
         <div *ngFor = "let task of taskList" class="task-container">
             <app-task [task] = "task" [usersMap] = "manageBoardService.userMap" [stateInfo] = "state"></app-task>
         </div>

@@ -1,8 +1,8 @@
-<mat-card (click)="editTask()" [ngClass] = "{'started-status':stateInfo.order === manageBoardService.stateMinOrderCount, 'done-status': stateInfo.order === manageBoardService.stateMaxOrderCount, 'in-progress-status': (stateInfo.order != manageBoardService.stateMinOrderCount || stateInfo.order != manageBoardService.stateMaxOrderCount) }">
+<mat-card (click)="editTask()" [ngClass] = "{'started-status':startState(), 'done-status': stateInfo.order === manageBoardService.stateMaxOrderCount, 'in-progress-status':checkInprogressState()}">
     <p> <mat-icon>description</mat-icon> {{task?.task_name}}</p>
     <p *ngIf="task?.owners_ids?.length" class="show-user"> 
         <mat-icon>supervisor_account</mat-icon> 
-        <span *ngFor="let userId of task.owners_ids" [ngStyle] = "{'background': showUserColorRepByUserId()}">
+        <span *ngFor="let userId of task.owners_ids" [ngStyle] = "{'background': showUserColorRepByUserId(userId)}">
             {{showUserByUserId(userId)}}
         </span>
     </p>

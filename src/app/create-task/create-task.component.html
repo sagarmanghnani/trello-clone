@@ -2,11 +2,14 @@
     <div class="task-header">
         <div>
             <input [(ngModel)]="manageTask.task_name" placeholder="enter task name" required #name="ngModel" [ngClass] = "{'error-input':((!name.valid && name.dirty))}" >
-            <small *ngIf="((!name.valid && name.dirty))" class="error-message"> Add course name </small> 
-            <p class="state-name"> in list {{stateListInfo?.state_name}} <span (click)="selectState.open()" *ngIf="mode === 'EDIT'" > change state </span> </p>
-            <mat-select class="userselect" [value]="stateListInfo.state_id" #selectState (selectionChange) = "assignNewState($event)" hidden> 
-                <mat-option *ngFor="let state of availableStatesForTransition" [value] = "state.state_id"> {{state.state_name}} </mat-option>
-            </mat-select>
+            <small *ngIf="((!name.valid && name.dirty))" class="error-message"> Add course name </small>
+            <small *ngIf="name?.value && (name?.value?.length) < 5 || (name?.value?.length) > 20" class="error-message"> Please enter name between 5 to 20 characters </small> 
+            <p class="state-name"> in list {{stateListInfo?.state_name}} <span (click)="selectState.open()" style="max-height: 20px;" *ngIf="mode === 'EDIT'" >
+                 change state 
+                 <mat-select class="stateselect" [value]="stateListInfo.state_id" #selectState (selectionChange) = "assignNewState($event)"> 
+                    <mat-option *ngFor="let state of availableStatesForTransition" [value] = "state.state_id"> {{state.state_name}} </mat-option>
+                </mat-select>
+                </span> </p>
             
         </div>
     </div>
@@ -24,8 +27,8 @@
                 <p> {{showOwner(selectedOwnerId)}} <span> <mat-icon (click)="removeOwner(selectedOwnerId)" *ngIf="manageTask.owners_ids.length > 1" >close</mat-icon> </span> </p>
             </div>
         </div>
-        <div>
-            <button mat-mini-fab  class="add-owner-btn"> <mat-icon (click)="selectOwnersFortask(select)">add</mat-icon>  </button>
+        <div class="owner-btn-container">
+            <button mat-mini-fab color="primary" class="add-owner-btn"> <mat-icon (click)="selectOwnersFortask(select)">add</mat-icon>  </button>
         </div>
     </div>
 
@@ -36,9 +39,9 @@
     </div>
 
     <div>
-        <h3 (click)="uploadImage()" class="attachments"> Attachments 
+        <h3 class="attachments"> Attachments 
             <span> 
-                <button mat-mini-fab class="add-owner-btn" (click)="uploadImage()"> <mat-icon>add</mat-icon>  </button>
+                <button mat-mini-fab color="primary" class="add-owner-btn" (click)="uploadImage()"> <mat-icon>add</mat-icon>  </button>
              </span> </h3>
         <input type="file" name="file" (change) = "addAttachments($event)" style="display: none;" #attachmentUpload > 
     </div>

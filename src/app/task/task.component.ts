@@ -73,6 +73,17 @@ export class TaskComponent implements OnInit {
     }
   }
 
+  startState(){
+    if(this.stateInfo.order === this.manageBoardService.stateMinOrderCount){
+      return true;
+    }return false;
+  }
+
+  checkInprogressState(){
+    if((this.stateInfo.order != this.manageBoardService.stateMinOrderCount) && (this.stateInfo.order != this.manageBoardService.stateMaxOrderCount)){
+      return true;
+    }return false;
+  }
 
 
 }

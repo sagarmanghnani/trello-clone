@@ -77,7 +77,7 @@ export class CreateTaskComponent implements OnInit {
   }
 
   removeOwner(userid:number){
-    this.selectedOwners = this.selectedOwners.filter(userId => {
+    this.manageTask.owners_ids = this.manageTask.owners_ids.filter(userId => {
       return userId !== userid
     })
   }
@@ -96,6 +96,12 @@ export class CreateTaskComponent implements OnInit {
   validateTask(){
     if(!this.manageTask.task_name){
       this.manageBoard.presentSnackBar("Please enter name to continue");
+      return false;
+    }
+
+    if(this.manageTask.task_name.length < 5 || this.manageTask.task_name.length > 20){
+      this.manageBoard.presentSnackBar("Please enter name between 5 to 20 characters");
+
       return false;
     }
     return true;
