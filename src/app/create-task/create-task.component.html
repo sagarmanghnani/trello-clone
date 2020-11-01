@@ -1,7 +1,8 @@
 <div class="task-container">
     <div class="task-header">
         <div>
-            <input [(ngModel)]="manageTask.task_name" placeholder="enter task name " >
+            <input [(ngModel)]="manageTask.task_name" placeholder="enter task name" required #name="ngModel" [ngClass] = "{'error-input':((!name.valid && name.dirty))}">
+            <small *ngIf="((!name.valid && name.dirty))" class="error-message"> Add course name </small> 
             <p> in list {{stateListInfo?.state_name}} </p>
         </div>
     </div>
@@ -13,9 +14,9 @@
         </mat-select>
     </div>
 
-    <div *ngIf="selectedOwners?.length" class="show-selected-owners">
-        <div *ngFor = "let selectedOwnerId of selectedOwners">
-            <p> {{showOwner(selectedOwnerId)}} <span> <mat-icon (click)="removeOwner(selectedOwnerId)">close</mat-icon> </span> </p>
+    <div *ngIf="manageTask.owners_ids?.length" class="show-selected-owners">
+        <div *ngFor = "let selectedOwnerId of manageTask.owners_ids">
+            <p> {{showOwner(selectedOwnerId)}} <span> <mat-icon (click)="removeOwner(selectedOwnerId)" *ngIf="selectedOwners?.length > 1" >close</mat-icon> </span> </p>
         </div>
         <button mat-mini-fab class="add-owner-btn"> <mat-icon (click)="selectOwnersFortask(select)">add</mat-icon>  </button>
     </div>
@@ -26,7 +27,23 @@
         <textarea [(ngModel)]="manageTask.description" rows="4" placeholder="describe your task" style="width:100%"></textarea>
     </div>
 
-    
+    <div>
+        <h3 (click)="uploadImage()"> Attachments </h3>
+        <input type="file" name="file" (change) = "addAttachments($event)" style="display: none;" #attachmentUpload > 
+    </div>
+
+    <div *ngIf="manageTask.attachments" >
+        <div *ngFor="let attachment of manageTask.attachments" >
+            <div> <a [href] = "manageTask.separateUrlFromType(attachment).url"> <mat-icon *ngIf="manageTask.separateUrlFromType(attachment).type == 'pdf'" >picture_as_pdf</mat-icon> {{manageTask.separateUrlFromType(attachment).name}}</a> </div>
+        </div>
+        <button mat-raised-button class="add-owner-btn" (click)="uploadImage()"> <mat-icon>add</mat-icon>  </button>
+    </div>
+
+    <div>
+        <button (click)="createTask()"> Create Task </button>
+    </div>
+
+
 
     
 </div>

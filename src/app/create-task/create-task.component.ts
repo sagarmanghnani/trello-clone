@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewChild } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
 import { Task } from 'src/modals/Task';
 import { StateWorkflow } from 'src/modals/StateWorkflow';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -21,7 +21,8 @@ export class CreateTaskComponent implements OnInit {
   allUsers:User[] = [];
   selectedOwners:number[] = [];
   ownersMap:Map<number, User> = new Map();
-  @ViewChild('select')select:MatSelect
+  @ViewChild('select')select:MatSelect;
+  @ViewChild('attachmentUpload')attachmentUpload:ElementRef
   constructor(
     public dialogRef: MatDialogRef<CreateTaskComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -73,6 +74,39 @@ export class CreateTaskComponent implements OnInit {
     this.selectedOwners = this.selectedOwners.filter(userId => {
       return userId !== userid
     })
+  }
+
+  uploadImage(){
+    this.attachmentUpload.nativeElement.click()
+  }
+
+  addAttachments(event){
+    let file = (event.target.files[0]);
+    this.dbService.uploadAttachment(file, file.name, file.type).then((downloadUrl:string) => {
+      this.manageTask.attachments.push(`${downloadUrl}$${file.name}`);
+    });
+  }
+
+  validateTask(){
+    if(!this.manageTask.task_name){
+      this.manageBoard.presentSnackBar("Please enter name to continue");
+      return false;
+    }
+    return true;
+  }
+
+  createTask(){
+    let status = this.validateTask();
+    if(!status){
+      return;
+    }
+    let taskToCreate = {};
+    this.manageTask.state_id = this.stateListInfo.state_id;
+    this.manageTask.owners_ids
+    this.dbService.createNewTask(Object.assign(taskToCreate, this.manageTask)).then(() => {
+      this.manageBoard.presentSnackBar("Task added successfully");
+      this.dialogRef.close();
+    });    
   }
 
 

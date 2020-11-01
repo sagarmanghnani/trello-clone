@@ -5,4 +5,5 @@ export class Constants {
     public static STATE = "STATE";
     public static MODE_CREATE = 'CREATE';
     public static MODE_EDIT = 'EDIT';
+    public static ATTACHMENT_TYPE_PDF = 'pdf';
 }
