@@ -16,3 +16,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .common-padding{
     padding-left: 3rem;
 }
+
+@media screen and (max-width:564px){
+    .common-padding{
+        padding-left: 15px;
+    }
+    
+}
+
+.clarity-fix{
+    width: 100%;
+}

@@ -27,7 +27,7 @@ import { environment } from 'src/environments/environment';
 import { CreateTaskComponent } from './create-task/create-task.component';
 import {MatSelectModule} from '@angular/material/select';
 import { TaskComponent } from './task/task.component'
-
+import { EcoFabSpeedDialModule } from '@ecodev/fab-speed-dial';
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +54,8 @@ import { TaskComponent } from './task/task.component'
     MatDividerModule,
     MatCardModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    MatSelectModule
+    MatSelectModule,
+    EcoFabSpeedDialModule
   ],
   providers: [
     HttpClient,

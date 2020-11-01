@@ -40,7 +40,7 @@ export class TaskComponent implements OnInit {
 
   showUserByUserId(userId:number){
     if(this.usersMap.has(userId)){
-      return this.usersMap.get(userId).user_name;
+      return this.usersMap.get(userId).showNameInitials();
     }
   }
 
@@ -61,9 +61,18 @@ export class TaskComponent implements OnInit {
   }
 
   deleteTask(){
+    event.stopPropagation();
     this.dbService.deleteTaskFromTaskId(this.task.task_id).then(() => {
       this.manageBoardService.presentSnackBar("Task deleted");
     })
   }
+
+  showUserColorRepByUserId(userId:number){
+    if(this.usersMap.has(userId)){
+      return this.usersMap.get(userId).color_rep;
+    }
+  }
+
+
 
 }

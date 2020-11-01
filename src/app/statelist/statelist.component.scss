@@ -1,7 +1,24 @@
 .state-header{
     display: flex;
     align-items: center;
+    max-height: 40px;
     h3 {
         margin: 0;
     }
+    button{
+        margin-left: auto;
+    }
 }
+
+.task-container{
+    margin-top: 10px;
+}
+
+::ng-deep .userselect div.mat-select-arrow-wrapper {
+    display: none;
+  }
+  
+  ::ng-deep .userselect.mat-select {
+    display: inline-block;
+    width: 0;
+  }

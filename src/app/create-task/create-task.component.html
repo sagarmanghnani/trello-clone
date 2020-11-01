@@ -4,7 +4,7 @@
             <input [(ngModel)]="manageTask.task_name" placeholder="enter task name" required #name="ngModel" [ngClass] = "{'error-input':((!name.valid && name.dirty))}" >
             <small *ngIf="((!name.valid && name.dirty))" class="error-message"> Add course name </small> 
             <p class="state-name"> in list {{stateListInfo?.state_name}} <span (click)="selectState.open()" *ngIf="mode === 'EDIT'" > change state </span> </p>
-            <mat-select class="stateselect" [value]="stateListInfo.state_id" #selectState (selectionChange) = "assignNewState($event)" hidden> 
+            <mat-select class="userselect" [value]="stateListInfo.state_id" #selectState (selectionChange) = "assignNewState($event)" hidden> 
                 <mat-option *ngFor="let state of availableStatesForTransition" [value] = "state.state_id"> {{state.state_name}} </mat-option>
             </mat-select>
             
@@ -12,17 +12,21 @@
     </div>
 
     <div *ngIf="allUsers?.length" class="all-users" >
-        <h3> Members </h3>
+        <h3> Assigned to </h3>
         <mat-select multiple class="userselect" [(ngModel)]="manageTask.owners_ids" #select> 
             <mat-option *ngFor="let user of allUsers" [value] = "user.user_id"> {{user.user_name}} </mat-option>
         </mat-select>
     </div>
 
     <div *ngIf="manageTask.owners_ids?.length" class="show-selected-owners">
-        <div *ngFor = "let selectedOwnerId of manageTask.owners_ids">
-            <p> {{showOwner(selectedOwnerId)}} <span> <mat-icon (click)="removeOwner(selectedOwnerId)" *ngIf="manageTask.owners_ids.length > 1" >close</mat-icon> </span> </p>
+        <div class="owners-name">
+            <div *ngFor = "let selectedOwnerId of manageTask.owners_ids">
+                <p> {{showOwner(selectedOwnerId)}} <span> <mat-icon (click)="removeOwner(selectedOwnerId)" *ngIf="manageTask.owners_ids.length > 1" >close</mat-icon> </span> </p>
+            </div>
         </div>
-        <button mat-mini-fab class="add-owner-btn"> <mat-icon (click)="selectOwnersFortask(select)">add</mat-icon>  </button>
+        <div>
+            <button mat-mini-fab  class="add-owner-btn"> <mat-icon (click)="selectOwnersFortask(select)">add</mat-icon>  </button>
+        </div>
     </div>
 
 

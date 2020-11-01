@@ -8,9 +8,11 @@ export abstract class User implements Deserialize{
     user_name:string;
     created_at:string;
     created_by:number;
+    color_rep:string;
 
     abstract createBoard(name?:string);
     abstract deserialize(input:any);
+    abstract showNameInitials();
 }
 
 export class Owner extends User{
@@ -26,5 +28,14 @@ export class Owner extends User{
     deserialize(input:any) {
         Object.assign(this, input);
         return this;
+    }
+
+    showNameInitials(){
+        let splittedArr = this.user_name.split(' ');
+        let initials = '';
+        splittedArr.forEach(initial => {
+            initials += initial[0].toUpperCase();
+        })
+        return initials;
     }
 }

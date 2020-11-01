@@ -43,7 +43,8 @@ export class CreateStatelistComponent implements OnInit {
       let serializedObj = {};
       Object.assign(serializedObj, this.state);
       this.dbService.createNewStateList(serializedObj).then(() => {
-        this.manageBoard.presentSnackBar("List added successfully")
+        this.manageBoard.presentSnackBar("List added successfully");
+        this.dialogRef.close();
       })
     }
   }

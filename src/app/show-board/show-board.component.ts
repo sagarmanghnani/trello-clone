@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CreateTaskComponent } from '../create-task/create-task.component';
 import { Constants } from '../Constants';
 import { Owner, User } from 'src/modals/User';
+import { CreateStatelistComponent } from '../create-statelist/create-statelist.component';
 
 @Component({
   selector: 'app-show-board',
@@ -37,6 +38,7 @@ export class ShowBoardComponent implements OnInit {
 
         this.manageBoard.board.sortStatesListOnOrder(this.stateLists);
         this.manageBoard.stateMaxOrderCount = this.stateLists[this.stateLists.length - 1].order;
+        this.manageBoard.stateMinOrderCount = this.stateLists[0].order;
         console.log(this.stateLists, "stateslist");
       }
       
@@ -75,5 +77,13 @@ export class ShowBoardComponent implements OnInit {
       panelClass:'my-panel'
     })
   }
+
+  createStateList(){
+    let dialogRef = this.dialog.open(CreateStatelistComponent, {
+      width:'250px'
+    })
+  }
+
+  
 
 }

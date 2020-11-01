@@ -14,7 +14,13 @@ import { StateWorkflow } from 'src/modals/StateWorkflow';
 export class ManageBoardService {
   GET_USERS:string = `assets/Users.json`;
   onBoardFetchEvent:EventEmitter<any> = new EventEmitter();
-
+  private _stateMinOrderCount: number = 0;
+  public get stateMinOrderCount(): number {
+    return this._stateMinOrderCount;
+  }
+  public set stateMinOrderCount(value: number) {
+    this._stateMinOrderCount = value;
+  }
   private _boardUser: User;
   private _board: Board;
   private _stateMaxOrderCount: number;

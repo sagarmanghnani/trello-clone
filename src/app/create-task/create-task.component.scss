@@ -32,6 +32,10 @@
     .show-selected-owners{
         display: flex;
         align-items: center;
+        .owners-name{
+            display: flex;
+            flex-wrap: wrap;
+        }
         mat-icon{
             font-size: 12px;
             cursor: pointer;

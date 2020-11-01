@@ -13,6 +13,7 @@ export class StatelistComponent implements OnInit {
 
   @Input() state:StateWorkflow;
   taskList:Task[] = [];
+  sortType:number = null;
   constructor(
     public dbService:DbserviceService,
     public manageBoardService:ManageBoardService
@@ -39,15 +40,26 @@ export class StatelistComponent implements OnInit {
   }
 
   sortTaskByCreatedDate(){
-    this.taskList.sort((task1, task2) => {
-      return moment(task1.created_at).diff(moment(task2.created_at));
-    })
+    this.taskList = this.taskList.sort((task1, task2) => {
+      let diff =  moment(task1.created_at).diff(moment(task2.created_at));
+      return diff;
+    }).slice();
   }
 
   sortTaskByTitle(){
     this.taskList.sort((task1, task2) => {
       return (task1.task_name > task2.task_name) ? 1:-1
     });
+  }
+
+  onSortValueSelect(event){
+    let value = event.value;
+    if(value == 1){
+      this.sortTaskByCreatedDate();
+    }else if(value == 2){
+      this.sortTaskByTitle();
+    }
+
   }
 
   

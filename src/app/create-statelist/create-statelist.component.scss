@@ -1,13 +1,13 @@
 .list-state-container{
     input{
-        padding-top: 5px;
-        padding-bottom: 5px;
+        padding: 8px;
         border-radius: 5px;
         border: 1px solid gray;
         width: 100%;    
     }
     .add-state-btn-container{
         display: flex;
-        justify-items: flex-end;
+        margin-top: 10px;
+        justify-content: flex-end;
     }
 }

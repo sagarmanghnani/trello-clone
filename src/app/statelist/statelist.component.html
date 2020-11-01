@@ -1,11 +1,16 @@
 <div *ngIf="state?.state_id" >
     <div class="state-header">
-        <h3> <span> {{taskList.length}} </span>  {{state.state_name}}</h3> <button mat-icon-button></button>
+        <h3> <span> {{taskList.length}} </span>  {{state.state_name}}</h3> <button mat-icon-button (click) = "select.open()"><mat-icon>sort</mat-icon> </button>
+        <mat-select class="userselect" [(ngModel)]="sortType" #select (selectionChange) = "onSortValueSelect($event)"> 
+            <mat-option value = "1"> sort by date </mat-option>
+            <mat-option value = "2"> sort by title </mat-option>
+        </mat-select>
     </div>
+
     
+    <mat-divider></mat-divider>
     <div *ngIf="taskList.length" >
-        <div *ngFor = "let task of taskList">
-            <!-- <div>sads</div> -->
+        <div *ngFor = "let task of taskList" class="task-container">
             <app-task [task] = "task" [usersMap] = "manageBoardService.userMap" [stateInfo] = "state"></app-task>
         </div>
     </div>
