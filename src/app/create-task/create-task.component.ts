@@ -24,6 +24,7 @@ export class CreateTaskComponent implements OnInit {
   ownersMap:Map<number, User> = new Map();
   @ViewChild('select')select:MatSelect;
   @ViewChild('attachmentUpload')attachmentUpload:ElementRef
+  availableStatesForTransition:StateWorkflow[] = [];
   constructor(
     public dialogRef: MatDialogRef<CreateTaskComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -40,6 +41,7 @@ export class CreateTaskComponent implements OnInit {
       Object.assign(this.manageTask, existingTask);
     }
     this.getAllUsers();
+    this.getAllStatesForBoard();
   }
 
 
@@ -125,6 +127,18 @@ export class CreateTaskComponent implements OnInit {
       this.manageBoard.presentSnackBar("Task updated successfully");
       this.dialogRef.close();
     });
+  }
+
+  getAllStatesForBoard(){
+    this.dbService.fetchAllowedStatesForBoardId(this.stateListInfo.board_id, this.stateListInfo.order).subscribe(res => {
+      this.availableStatesForTransition = res;
+    })
+  }
+
+  assignNewState(event){
+      this.stateListInfo = this.availableStatesForTransition.find((state) => {
+        return state.state_id === event.value;
+      })
   }
 
 

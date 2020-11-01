@@ -3,7 +3,7 @@ import { StateWorkflow } from 'src/modals/StateWorkflow';
 import { DbserviceService } from '../dbservice.service';
 import { Task } from 'src/modals/Task';
 import { ManageBoardService } from '../manage-board.service';
-
+import * as moment from 'moment'
 @Component({
   selector: 'app-statelist',
   templateUrl: './statelist.component.html',
@@ -35,6 +35,12 @@ export class StatelistComponent implements OnInit {
           return new Task().deserialize(task);
         })
       }
+    })
+  }
+
+  sortTaskByCreatedDate(){
+    this.taskList.sort((task1, task2) => {
+      return moment(task1.created_at).diff(moment(task2.created_at));
     })
   }
 

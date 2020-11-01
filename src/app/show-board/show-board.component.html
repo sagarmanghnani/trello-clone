@@ -1,7 +1,8 @@
 <div>
     <h1 *ngIf="manageBoard?.board?.board_name" > {{manageBoard.board.board_name}} </h1>
-    <div class="clr-row">
+    <div class="clr-row scroll-list">
         <div *ngFor="let state of stateLists" class="clr-col-4">
+            <!-- <div class="card"></div> -->
             <app-statelist [state] = "state"></app-statelist>
         </div>
     </div>

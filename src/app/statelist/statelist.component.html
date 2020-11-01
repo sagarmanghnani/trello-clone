@@ -5,6 +5,7 @@
     
     <div *ngIf="taskList.length" >
         <div *ngFor = "let task of taskList">
+            <!-- <div>sads</div> -->
             <app-task [task] = "task" [usersMap] = "manageBoardService.userMap" [stateInfo] = "state"></app-task>
         </div>
     </div>

@@ -3,7 +3,11 @@
         <div>
             <input [(ngModel)]="manageTask.task_name" placeholder="enter task name" required #name="ngModel" [ngClass] = "{'error-input':((!name.valid && name.dirty))}">
             <small *ngIf="((!name.valid && name.dirty))" class="error-message"> Add course name </small> 
-            <p> in list {{stateListInfo?.state_name}} </p>
+            <p class="state-name"> in list {{stateListInfo?.state_name}} <span (click)="selectState.open()" *ngIf="mode === 'EDIT'" > change state </span> </p>
+            <mat-select [value]="stateListInfo.state_id" #selectState (selectionChange) = "assignNewState($event)" class="userselect"> 
+                <mat-option *ngFor="let state of availableStatesForTransition" [value] = "state.state_id"> {{state.state_name}} </mat-option>
+            </mat-select>
+            
         </div>
     </div>
 
@@ -43,6 +47,8 @@
         <button (click)="createTask()" *ngIf="mode === 'CREATE'" > Create Task </button>
         <button (click) = "editTask()" *ngIf = "mode === 'EDIT'"> Edit Task </button>
     </div>
+
+    
 
 
 

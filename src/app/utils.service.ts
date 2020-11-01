@@ -15,7 +15,7 @@ export class UtilsService {
   }
 
   public static currentDateTime(){
-    return moment().format('YYYY-MM-DD');
+    return moment().format('YYYY-MM-DD[T]HH:mm:ss');
   }
 
   public static fetchResultsFromLocalStorage(key:string){

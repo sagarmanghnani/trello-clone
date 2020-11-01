@@ -21,6 +21,13 @@
         }
     }
 
+    .state-name{
+        display: flex;
+        span{
+            justify-items: flex-end;
+        }
+    }
+
     .show-selected-owners{
         display: flex;
         align-items: center;

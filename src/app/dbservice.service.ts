@@ -66,7 +66,7 @@ export class DbserviceService {
     })
   }
 
-  getTasksFromStateId(stateId:number):Observable<Task[]> {
+  getTasksFromStateId(stateId:string):Observable<Task[]> {
     return this.firestore.collection<Task>("Tasks", ref => ref.where('state_id','==', stateId)).valueChanges({idField: 'task_id'}).pipe();
   }
 
@@ -80,6 +80,11 @@ export class DbserviceService {
       }
       )
     })
+  }
+
+  fetchAllowedStatesForBoardId(boardId, order:number){
+    return this.firestore.collection<StateWorkflow>("States", ref => ref.where('board_id', '==', boardId).where('order', '<=', order + 1)).valueChanges({idField: 'state_id'}).pipe();
+
   }
 
 }
