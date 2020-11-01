@@ -87,4 +87,8 @@ export class DbserviceService {
 
   }
 
+  deleteTaskFromTaskId(taskId){
+    return this.firestore.collection("Tasks").doc(taskId).delete();
+  }
+
 }

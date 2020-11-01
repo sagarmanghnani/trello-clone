@@ -6,6 +6,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Constants } from '../Constants';
 import { StateWorkflow } from 'src/modals/StateWorkflow';
 import { CreateTaskComponent } from '../create-task/create-task.component';
+import { DbserviceService } from '../dbservice.service';
+import { ManageBoardService } from '../manage-board.service';
 
 @Component({
   selector: 'app-task',
@@ -17,7 +19,9 @@ export class TaskComponent implements OnInit {
   @Input() usersMap:Map<number, User>;
   @Input() stateInfo:StateWorkflow;
   constructor(
-    public dialog:MatDialog
+    public dialog:MatDialog,
+    public dbService:DbserviceService,
+    public manageBoardService:ManageBoardService
   ) { }
 
   ngOnInit(): void {
@@ -53,6 +57,12 @@ export class TaskComponent implements OnInit {
       },
       width: '600px',
       panelClass:'my-panel'
+    })
+  }
+
+  deleteTask(){
+    this.dbService.deleteTaskFromTaskId(this.task.task_id).then(() => {
+      this.manageBoardService.presentSnackBar("Task deleted");
     })
   }
 

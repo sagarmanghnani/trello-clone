@@ -44,6 +44,12 @@ export class StatelistComponent implements OnInit {
     })
   }
 
+  sortTaskByTitle(){
+    this.taskList.sort((task1, task2) => {
+      return (task1.task_name > task2.task_name) ? 1:-1
+    });
+  }
+
   
 
   

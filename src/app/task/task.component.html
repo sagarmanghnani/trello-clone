@@ -1,4 +1,4 @@
-<div (click)="editTask()">
+<mat-card (click)="editTask()">
     <p>{{task?.task_name}}</p>
     <p *ngIf="task?.owners_ids?.length" >  
         <span *ngFor="let userId of task.owners_ids" >
@@ -8,5 +8,5 @@
 
     <p> {{prettyPrintDateTime(task?.created_at)}} </p>
 
-
-</div>
+    <button (click)="deleteTask()" > delete task </button>
+</mat-card>

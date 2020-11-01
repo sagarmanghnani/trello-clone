@@ -1,18 +1,18 @@
 <div class="task-container">
     <div class="task-header">
         <div>
-            <input [(ngModel)]="manageTask.task_name" placeholder="enter task name" required #name="ngModel" [ngClass] = "{'error-input':((!name.valid && name.dirty))}">
+            <input [(ngModel)]="manageTask.task_name" placeholder="enter task name" required #name="ngModel" [ngClass] = "{'error-input':((!name.valid && name.dirty))}" >
             <small *ngIf="((!name.valid && name.dirty))" class="error-message"> Add course name </small> 
             <p class="state-name"> in list {{stateListInfo?.state_name}} <span (click)="selectState.open()" *ngIf="mode === 'EDIT'" > change state </span> </p>
-            <mat-select [value]="stateListInfo.state_id" #selectState (selectionChange) = "assignNewState($event)" class="userselect"> 
+            <mat-select class="stateselect" [value]="stateListInfo.state_id" #selectState (selectionChange) = "assignNewState($event)" hidden> 
                 <mat-option *ngFor="let state of availableStatesForTransition" [value] = "state.state_id"> {{state.state_name}} </mat-option>
             </mat-select>
             
         </div>
     </div>
 
-    <div *ngIf="allUsers?.length" >
-        <label> Member </label>
+    <div *ngIf="allUsers?.length" class="all-users" >
+        <h3> Members </h3>
         <mat-select multiple class="userselect" [(ngModel)]="manageTask.owners_ids" #select> 
             <mat-option *ngFor="let user of allUsers" [value] = "user.user_id"> {{user.user_name}} </mat-option>
         </mat-select>
@@ -26,13 +26,16 @@
     </div>
 
 
-    <div>
+    <div class="description">
         <h3> Description </h3>
         <textarea [(ngModel)]="manageTask.description" rows="4" placeholder="describe your task" style="width:100%"></textarea>
     </div>
 
     <div>
-        <h3 (click)="uploadImage()"> Attachments </h3>
+        <h3 (click)="uploadImage()" class="attachments"> Attachments 
+            <span> 
+                <button mat-mini-fab class="add-owner-btn" (click)="uploadImage()"> <mat-icon>add</mat-icon>  </button>
+             </span> </h3>
         <input type="file" name="file" (change) = "addAttachments($event)" style="display: none;" #attachmentUpload > 
     </div>
 
@@ -40,12 +43,11 @@
         <div *ngFor="let attachment of manageTask.attachments" >
             <div> <a [href] = "manageTask.separateUrlFromType(attachment).url"> <mat-icon *ngIf="manageTask.separateUrlFromType(attachment).type == 'pdf'" >picture_as_pdf</mat-icon> {{manageTask.separateUrlFromType(attachment).name}}</a> </div>
         </div>
-        <button mat-raised-button class="add-owner-btn" (click)="uploadImage()"> <mat-icon>add</mat-icon>  </button>
     </div>
 
-    <div>
-        <button (click)="createTask()" *ngIf="mode === 'CREATE'" > Create Task </button>
-        <button (click) = "editTask()" *ngIf = "mode === 'EDIT'"> Edit Task </button>
+    <div class="action-btn">
+        <button mat-raised-button color="primary" (click)="createTask()" *ngIf="mode === 'CREATE'" > Create Task </button>
+        <button mat-raised-button color="primary" (click) = "editTask()" *ngIf = "mode === 'EDIT'"> Edit Task </button>
     </div>
 
     

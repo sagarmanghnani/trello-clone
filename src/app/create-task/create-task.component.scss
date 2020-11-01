@@ -23,8 +23,9 @@
 
     .state-name{
         display: flex;
+        justify-content: space-between;
         span{
-            justify-items: flex-end;
+            text-decoration: underline;
         }
     }
 
@@ -47,6 +48,50 @@
             font-size: 24px;
         }
     }
+
+    .attachments{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .all-users{
+        h3{
+            margin-bottom: 0;
+        }
+        max-height: 25px;
+    }
+
+    h3{
+        color: var(--primary-text);
+    }
+
+    p{
+        color: var(--secondary-text);
+    }
+
+    
+
+    .description{
+        textarea{
+            width: 100%;
+            border: none;
+            background: #eaecf0;
+            padding-left: 16px;
+            padding-top: 16px;
+            border-radius: 5px;
+        }
+        textarea:focus{
+            background: white;
+        }
+        
+    }
+
+    .action-btn{
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 10px;
+    }
 }
 
 ::ng-deep .userselect div.mat-select-arrow-wrapper {
@@ -56,6 +101,20 @@
   ::ng-deep .userselect.mat-select {
     display: inline;
   }
+
+  ::ng-deep .stateselect div.mat-select-arrow-wrapper {
+    display: none;
+  }
+  
+  ::ng-deep .stateselect.mat-select {
+    // width: 0;
+    // display: inline-block !important;
+    // height: 0;
+    // position: absolute;
+    display: inline;
+  }
+
+  
 
 
 @mixin myPanel(){
